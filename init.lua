@@ -185,13 +185,7 @@ require('lazy').setup({
   { 'akinsho/bufferline.nvim', version = '*', dependencies = 'nvim-tree/nvim-web-devicons' },
   {
     'kdheepak/lazygit.nvim',
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
+    cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitCurrentFile', 'LazyGitFilter', 'LazyGitFilterCurrentFile' },
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
