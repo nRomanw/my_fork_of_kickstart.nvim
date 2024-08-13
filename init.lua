@@ -59,6 +59,7 @@ vim.keymap.set('n', '<leader>n', vim.cmd.bn, { desc = 'Next Buffer' })
 vim.cmd [[
 augroup run_file
   autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>i"
+  autocmd BufEnter *.go let @g=":w\<CR>:sp | terminal go run %\<CR>i"
 augroup end
 ]]
 
