@@ -55,6 +55,13 @@ vim.keymap.set('i', 'jj', '<ESC>', { silent = true })
 vim.keymap.set('n', '<leader>p', vim.cmd.bp, { desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>n', vim.cmd.bn, { desc = 'Next Buffer' })
 
+--Run Code with @g
+vim.cmd [[
+augroup run_file
+  autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>i"
+augroup end
+]]
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -526,8 +533,17 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        bashls = {},
+        gopls = {},
         -- pyright = {},
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              ignore = { 'W391', 'E501' },
+              maxLineLength = 100,
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -614,8 +630,8 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'ruff' }, --, "isort", "black" },
-        --
+        python = { 'isort', 'black' },
+        bash = { 'shellcheck' },
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
@@ -747,11 +763,7 @@ require('lazy').setup({
     'rose-pine/neovim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'rose-pine-moon'
-
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
