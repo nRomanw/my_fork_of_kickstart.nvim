@@ -58,7 +58,7 @@ vim.keymap.set('n', '<leader>n', vim.cmd.bn, { desc = 'Next Buffer' })
 --Run Code with @g
 vim.cmd [[
 augroup run_file
-  autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>i"
+  autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>"
   autocmd BufEnter *.go let @g=":w\<CR>:sp | terminal go run %\<CR>i"
 augroup end
 ]]
@@ -67,8 +67,21 @@ augroup end
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
+--
+---- greatest remap ever
+--vim.keymap.set("x", "<leader>p", [["_dP]])
+--
+---- next greatest remap ever : asbjornHaland
+--vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+--vim.keymap.set("n", "<leader>Y", [["+Y]])
+--
+--vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- Make line numbers default
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -119,6 +132,7 @@ vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -536,7 +550,7 @@ require('lazy').setup({
         -- clangd = {},
         bashls = {},
         gopls = {},
-        -- pyright = {},
+        pyright = {},
         pylsp = {
           plugins = {
             pycodestyle = {
