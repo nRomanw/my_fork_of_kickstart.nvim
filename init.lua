@@ -101,7 +101,7 @@ vim.keymap.set('n', '<leader>n', vim.cmd.bn, { desc = 'Next Buffer' })
 --Run Code with @g
 vim.cmd [[
 augroup run_file
-  autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>"
+  autocmd BufEnter *.py let @g=":w\<CR>:sp | terminal python3 %\<CR>i"
   autocmd BufEnter *.go let @g=":w\<CR>:sp | terminal go run %\<CR>i"
 augroup end
 ]]
@@ -654,14 +654,24 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        pyright = {},
-        pylsp = {
-          plugins = {
-            pycodestyle = {
-              ignore = { 'W391', 'E501' },
-              maxLineLength = 100,
+        basedpyright = {
+          settings = {
+            python = {
+              pythonPath = '/bin/python3',
+              analysis = {
+                autoSearchPaths = false,
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+              },
             },
           },
+          -- pylsp = {
+          --   plugins = {
+          --     pycodestyle = {
+          --       ignore = { 'W391', 'E501' },
+          --       maxLineLength = 100,
+          --     },
+          --   },
         },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
